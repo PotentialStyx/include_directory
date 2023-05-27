@@ -58,10 +58,12 @@ fn expand_dir(root: &Path, path: &Path) -> proc_macro2::TokenStream {
                 include_directory::DirEntry::Dir(#tokens)
             });
         } else if child.is_file() {
-            let tokens = expand_file(root, &child);
-            child_tokens.push(quote! {
-                include_directory::DirEntry::File(#tokens)
-            });
+            if child.extension().unwrap_or(&std::ffi::OsStr::new("")) == "js" {
+                let tokens = expand_file(root, &child);
+                child_tokens.push(quote! {
+                    include_directory::DirEntry::File(#tokens)
+                });
+            }
         } else {
             panic!("\"{}\" is neither a file nor a directory", child.display());
         }

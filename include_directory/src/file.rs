@@ -11,8 +11,8 @@ pub struct File<'a> {
     contents: &'a [u8],
     mimetype: &'a str,
     path: &'a str,
-    #[cfg(feature = "metadata")]
-    metadata: Option<crate::Metadata>,
+    // #[cfg(feature = "metadata")]
+    // metadata: Option<crate::Metadata>,
 }
 
 impl<'a> File<'a> {
